@@ -3,3 +3,69 @@
     - The styles in this folder's `style.css`
     - The script in script.js, which should be included via a `<script src="script.js" >` call before your closing </body> tag 
 -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Lab 2</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div class="header">
+        <h1>Patrick's Lab for INST377</h1>
+      </div>
+
+      <div class="container">
+        <div class="left_section box">
+          <h2>Albums</h2>
+
+          <div class="box">
+            <ol>
+              <li>Enema of the State - Blink-182</li>
+              <li>Finally Rich - Chief Keef</li>
+              <li>Heart of the Projects - Kodak Black</li>
+              <li>Californication - Red Hot Chili Peppers</li>
+              <li>Only Hope - YBS Skola</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="right_section box">
+          <h2>Image Carousel</h2>
+
+          <div class="carousel">
+            <button class="prev">prev</button>
+
+            <div class="carousel_item visible">
+              <img src="images/skate1.jpg" alt="skate1" />
+            </div>
+            <div class="carousel_item hidden">
+              <img src="images/skate2.jpg" alt="skate2" />
+            </div>
+            <div class="carousel_item hidden">
+                <img src="images/skate3.jpg" alt="skate3" />
+              </div>
+            <div class="carousel_item hidden">
+              <img src="images/chill.jpg" alt="chill" />
+            </div>
+
+                <button class="next">next</button>
+          </div>
+
+          <script src="script.js"></script>
+
+          <div class="box">All the same image of different types</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      p3stuff
+      <a class="links" href="https://github.com/p3stuff/INST377-Lab-Work">
+        github.com/p3stuff/INST377-Lab-Work</a
+      >
+    </div>
+  </body>
+</html>
