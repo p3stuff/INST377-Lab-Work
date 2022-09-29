@@ -1,10 +1,42 @@
-<!-- Bring in your successful HTML/CSS from the Flexbox lab -->
-<!-- Try typing 'doc' at the top of this file and pressing "tab" -->
-<!-- if your development environment is set up correctly -->
-<!-- the Emmett plugin will set this file up for you -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Some Web Page</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="page">
+      <div class="header">
+        <h1>Patrick's Lab For INST377</h1>
+      </div>
 
-<!-- Requirements -->
-<!-- Your page will need a form in it with an 'action' to /api and a single text field with an id/name of "resto" -->
-<!-- If you open /routes/apiRoutes and go to line 38 you will find the server side answer to your request! -->
+      <div class="container">
+        <div class="menu-1 box">
+          <h2>Form Inputs</h2>
 
-<!-- This week doesn't have a script.js file in it, because you're focusing on HTML and CSS -->
+          <form class="box" action="/api">
+            <label for="resto">Restaurant Name</label>
+            <input type="text" id="resto" name="restname" value="" />
+            <button class="submit">Submit</button>
+          </form>
+        </div>
+
+        <div class="menu-2 box">
+          <h2>Local Restaurants</h2>
+
+          <div class="box">
+            <p>A list of restaurants from an API</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        p3stuff:
+        <a class="links" href="https://github.com/p3stuff/INST377-Lab-Work"
+          >github.com/p3stuff/INST377-Lab-Work</a
+        >
+      </div>
+    </div>
+  </body>
+</html>
