@@ -66,7 +66,7 @@ form input {
 }
 
 body {
-  background-color: rgb(234, 234, 234);
+  background-color: lightgray;
   margin: 0;
 }
 
@@ -76,7 +76,9 @@ button {
 
 .header {
   color: black;
-  background-color: rgb(180, 180, 180);
+  background-color: teal;
+  margin: 1rem;
+
   display: flex;
   justify-content: center;
   border-radius: 10px;
@@ -98,7 +100,8 @@ button {
 .box {
   margin-top: 1rem;
   padding: 1rem;
-  background-color: rgb(180, 180, 180);
+  color: black;
+  background-color: lightyellow;
 
   display: flex;
   justify-content: left;
