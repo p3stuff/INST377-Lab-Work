@@ -59,7 +59,7 @@ function processRestaurants(list) {
 
 function filterList(array, filterInputValue) {
   return array.filter((item) => {
-    if (!item.name) { return; } 
+    if (!item.name) { return; }
     const lowerCaseName = item.name.toLowerCase();
     const lowerCaseQuery = filterInputValue.toLowerCase();
     // eslint-disable-next-line consistent-return
