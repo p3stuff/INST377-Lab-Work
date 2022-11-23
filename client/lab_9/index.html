@@ -2,17 +2,18 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Lab 8</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
+    <title>Lab 9</title>
+    <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
      integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
-     crossorigin=""/>
+     crossorigin=""/> -->
 
     <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
      <!-- Make sure you put this AFTER Leaflet's CSS -->
-    <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
+    <!-- <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
      integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
-     crossorigin=""></script>
+     crossorigin=""></script> -->
 
   </head>
   <body>
@@ -38,7 +39,11 @@
         <div class="menu-2 box">
           <h2>Local Restaurants</h2>
           
-          <div id="map"></div>
+          <div class="chart_container box">
+            <canvas id="myChart"></canvas>
+          </div>
+
+          <!-- <div id="map"></div> -->
 
           <div class="box" id="restaurant_list">
             <p>A list of restaurants from an API</p>

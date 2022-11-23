@@ -92,6 +92,64 @@ function markerPlace(array, map) {
   });
 }
 
+function initChart(chart, object) {
+  const labels = Object.keys(object);
+  const info = Object.keys(object).map((item) => object[item].length);
+
+  const data = {
+    labels: labels,
+    datasets: [{
+      label: 'Restaurants by Category',
+      backgroundColor: 'rgb(255, 99, 132)',
+      borderColor: 'rgb(255, 99, 132)',
+      data: info
+    }]
+  };
+
+  const config = {
+    type: 'bar',
+    data: data,
+    options: {responsive: true, maintainAspectRatio: false}
+  };
+
+  return new Chart(
+    chart,
+    config
+  );
+}
+
+function changeChart(chart, dataObject) {
+  const labels = Object.keys(dataObject);
+  const info = Object.keys(dataObject).map((item) => dataObject[item].length);
+
+  chart.data.labels = labels;
+  chart.data.datasets.forEach((set) => {
+    set.data = info;
+    return set;
+  });
+
+  chart.update();
+}
+
+function shapeDataForLineChart(array) {
+  return array.reduce((collection, item) => {
+    if (!collection[item.category]) {
+      collection[item.category] = [item];
+    } else {
+      collection[item.category].push(item);
+    }
+    return collection;
+  }, {});
+}
+
+async function getData() {
+  const url = 'https://data.princegeorgescountymd.gov/resource/umjn-t2iz.json'; // remote URL! you can test it in your browser
+  const data = await fetch(url); // We're using a library that mimics a browser 'fetch' for simplicity
+  const json = await data.json(); // the data isn't json until we access it using dot notation
+  const reply = json.filter((item) => Boolean(item.geocoded_column_1)).filter((item) => Boolean(item.name));
+  return reply;
+}
+
 async function mainEvent() {
   /*
     ## Main Event
@@ -99,40 +157,24 @@ async function mainEvent() {
       When you're not working in a heavily-commented "learning" file, this also is more legible
       If you separate your work, when one piece is complete, you can save it and trust it
   */
-  const pageMap = initMap();
+  // const pageMap = initMap();
   // the async keyword means we can make API requests
   const form = document.querySelector('.main_form'); // get your main form so you can do JS with it
   const submit = document.querySelector('#get-resto'); // get a reference to your submit button
   const loadanimation = document.querySelector('.lds-ellipsis'); // get a reference to our loading animation
+  const chartTarget = document.querySelector('#myChart');
   submit.style.display = 'none'; // let your submit button disappear
 
-  /*
-    Let's get some data from the API - it will take a second or two to load
-    This next line goes to the request for 'GET' in the file at /server/routes/foodServiceRoutes.js
-    It's at about line 27 - go have a look and see what we're retrieving and sending back.
-   */
-  const results = await fetch('/api/foodServicePG');
-  const arrayFromJson = await results.json(); // here is where we get the data from our request as JSON
+  /* API data request */
+  const chartData = await getData();
+  const shapedData = shapeDataForLineChart(chartData);
+  const myChart = initChart(chartTarget, shapedData);
 
-  /*
-    Below this comment, we log out a table of all the results using "dot notation"
-    An alternate notation would be "bracket notation" - arrayFromJson["data"]
-    Dot notation is preferred in JS unless you have a good reason to use brackets
-    The 'data' key, which we set at line 38 in foodServiceRoutes.js, contains all 1,000 records we need
-  */
-  // console.table(arrayFromJson.data);
-
-  // in your browser console, try expanding this object to see what fields are available to work with
-  // for example: arrayFromJson.data[0].name, etc
-  console.log(arrayFromJson.data[0]);
-
-  // this is called "string interpolation" and is how we build large text blocks with variables
-  console.log(
-    `${arrayFromJson.data[0].name} ${arrayFromJson.data[0].category}`
-  );
+  // const results = await fetch('/api/foodServicePG');
+  // const arrayFromJson = await results.json(); // here is where we get the data from our request as JSON
 
   // This IF statement ensures we can't do anything if we don't have information yet
-  if (!arrayFromJson.data?.length) { return; }
+  if (!chartData?.length) { return; }
 
   let currentList = [];
 
@@ -145,7 +187,7 @@ async function mainEvent() {
     console.log(event.target.value);
     const filteredList = filterList(currentList, event.target.value);
     injectHTML(filteredList);
-    markerPlace(filteredList, pageMap);
+    // markerPlace(filteredList, pageMap);
   });
 
   // And here's an eventListener! It's listening for a "submit" button specifically being clicked
@@ -155,12 +197,13 @@ async function mainEvent() {
     submitEvent.preventDefault();
 
     // This constant will have the value of your 15-restaurant collection when it processes
-    currentList = processRestaurants(arrayFromJson.data);
-    console.log(currentList);
+    currentList = processRestaurants(chartData);
 
     // And this function call will perform the "side effect" of injecting the HTML list for you
     injectHTML(currentList);
-    markerPlace(currentList, pageMap);
+    const localData = shapeDataForLineChart(currentList);
+    changeChart(myChart, localData);
+    // markerPlace(currentList, pageMap);
 
     // By separating the functions, we open the possibility of regenerating the list
     // without having to retrieve fresh data every time
